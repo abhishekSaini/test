@@ -37,15 +37,43 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/site/login']] :
-                [
-                    'label' => 'Logout (' . Yii::$app->user->identity->first_name . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ],
+            [
+                'label' => 'Admin Users', 'url' => ['/admin-users'],
+                'items' => [
+                      ['label' => 'Manage', 'url' => '/admin-users'],
+                      ['label' => 'Create New', 'url' => '/admin-users/create'],
+                 ],
+                'visible' => Yii::$app->user->identity->type == 'admin'
+            ],
+            [
+                'label' => 'Operators', 'url' => ['/operators'],
+                'items' => [
+                      ['label' => 'Manage', 'url' => '/operators'],
+                      ['label' => 'Create New', 'url' => '/operators/create'],
+                 ],
+                'visible' => Yii::$app->user->identity->type == 'admin'
+            ],
+            [
+                'label' => 'Channels', 'url' => ['/channels'],
+                'items' => [
+                      ['label' => 'Manage', 'url' => '/channels'],
+                      ['label' => 'Create New', 'url' => '/channels/create'],
+                 ],
+            ],
+            [
+                'label' => 'Meetings', 'url' => ['/meetings'],
+                'items' => [
+                      ['label' => 'Manage', 'url' => '/meetings'],
+                      ['label' => 'Create New', 'url' => '/meetings/create'],
+                 ],
+            ],
+            //['label' => 'Contact', 'url' => ['/site/contact']],
+            
+            [
+                'label' => 'Logout (' . Yii::$app->user->identity->first_name . ')',
+                'url' => ['/site/logout'],
+                'linkOptions' => ['data-method' => 'post']
+            ]
         ],
     ]);
     NavBar::end();
