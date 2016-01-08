@@ -22,7 +22,16 @@ class UserController extends Controller
     public function actionIndex()
     {
         $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        $filter = Yii::$app->request->queryParams;
+        
+        //setup type filter
+        if(explode('?', Yii::$app->request->url)[0] == '/admin-users')
+          $filter['UserSearch']['type'] = 'admin';
+        else if (explode('?', Yii::$app->request->url)[0] == '/operators')
+          $filter['UserSearch']['type'] = 'operator';
+          
+        $dataProvider = $searchModel->search($filter);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

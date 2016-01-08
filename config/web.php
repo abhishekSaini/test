@@ -12,6 +12,7 @@ $config = [
             'rules' => [
                 'site/reset-password/<id:(.*)>' => 'site/reset-password',
                 'admin-users' => 'user/index',
+                'operators' => 'user/index',
             ],
         ],
         'request' => [
