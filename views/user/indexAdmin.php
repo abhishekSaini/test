@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Admin Users';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
+<div class="user-index table-responsive">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
