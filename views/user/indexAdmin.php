@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                   else if($action == 'view')
                     return '/user/view-admin?id='.$model->id;
                   else
-                    return '/user/'.$action.'?id='.$model->id;
+                    return '/user/'.$action.'?id='.$model->id.'&type=admin-users';
                 }
             ],
         ],

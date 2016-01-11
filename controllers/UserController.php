@@ -139,7 +139,8 @@ class UserController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        $type = Yii::$app->request->get('type', 'admin-users');
+        return $this->redirect(Yii::$app->urlManager->createUrl($type));
     }
 
     /**
