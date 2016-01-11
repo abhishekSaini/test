@@ -3,10 +3,23 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
   
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'date_created',
+                'updatedAtAttribute' => 'date_updated',
+                'value' => function(){ return \Yii::$app->formatter->asDate('now', 'php:Y-m-d H:i:s'); },
+            ],
+        ];
+    }
+
     public function rules()
     {
         return [
