@@ -36,7 +36,18 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'data_created',
             // 'date_updated',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'urlCreator' => function ($action, $model, $key, $index) {
+                  
+                  if($action == 'update')
+                    return '/user/update-admin?id='.$model->id;
+                  else if($action == 'view')
+                    return '/user/view-admin?id='.$model->id;
+                  else
+                    return '/user/'.$action.'?id='.$model->id;
+                }
+            ],
         ],
     ]); ?>
 

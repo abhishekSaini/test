@@ -44,12 +44,19 @@ class UserController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionViewAdmin($id)
     {
-        return $this->render('view', [
+        return $this->render('viewAdmin', [
             'model' => $this->findModel($id),
         ]);
     }
+    
+    public function actionViewOperator($id)
+    {
+        return $this->render('viewOperator', [
+            'model' => $this->findModel($id),
+        ]);
+    }    
 
     /**
      * Creates a new User model.
@@ -64,7 +71,7 @@ class UserController extends Controller
         $model->scenario = 'create';
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view-operator', 'id' => $model->id]);
         } else {
             return $this->render('createOperator', [
                 'model' => $model,
@@ -80,7 +87,7 @@ class UserController extends Controller
         $model->scenario = 'create';
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view-admin', 'id' => $model->id]);
         } else {
             return $this->render('createAdmin', [
                 'model' => $model,
@@ -100,7 +107,7 @@ class UserController extends Controller
         $model->password = '';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view-admin', 'id' => $model->id]);
         } else {
             return $this->render('updateAdmin', [
                 'model' => $model,
@@ -114,7 +121,7 @@ class UserController extends Controller
         $model->password = '';
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view-operator', 'id' => $model->id]);
         } else {
             return $this->render('updateOperator', [
                 'model' => $model,

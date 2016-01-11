@@ -41,7 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'urlCreator' => function ($action, $model, $key, $index) {
                   
                   if($action == 'update')
-                    return '/user/update-admin?id='.$model->id;
+                    return '/user/update-operator?id='.$model->id;
+                  else if($action == 'view')
+                    return '/user/view-operator?id='.$model->id;
                   else
                     return '/user/'.$action.'?id='.$model->id;
                 }
