@@ -33,7 +33,7 @@ class UserController extends Controller
           
         $dataProvider = $searchModel->search($filter);
 
-        return $this->render('index', [
+        return $this->render('index'.ucfirst($filter['UserSearch']['type']), [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -56,18 +56,37 @@ class UserController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreateOperator()
     {
         $model = new User();
 
+        $model->type = 'operator';
+        $model->scenario = 'create';
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
+            return $this->render('createOperator', [
                 'model' => $model,
             ]);
         }
     }
+    
+    public function actionCreateAdmin()
+    {
+        $model = new User();
+
+        $model->type = 'admin';
+        $model->scenario = 'create';
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('createAdmin', [
+                'model' => $model,
+            ]);
+        }
+    }    
 
     /**
      * Updates an existing User model.
@@ -75,19 +94,34 @@ class UserController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdateAdmin($id)
     {
         $model = $this->findModel($id);
+        $model->password = '';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
+            return $this->render('updateAdmin', [
                 'model' => $model,
             ]);
         }
     }
 
+    public function actionUpdateOperator($id)
+    {
+        $model = $this->findModel($id);
+        $model->password = '';
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('updateOperator', [
+                'model' => $model,
+            ]);
+        }
+    }    
+    
     /**
      * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

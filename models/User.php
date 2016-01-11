@@ -6,6 +6,18 @@ use yii\db\ActiveRecord;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
+  
+    public function rules()
+    {
+        return [
+            // username and password are both required
+            [['first_name', 'last_name', 'email', 'last_name', 'type', 'status'], 'required'],
+            ['password', 'required', 'on' => 'create'],
+            ['email', 'unique'],
+            ['email', 'email'],
+            ['password', 'safe'],
+        ];
+    }    
 
     public static function tableName()
     {
@@ -86,4 +98,37 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->password === md5($password);
     }
+    
+    public static function getStatusList() {
+      
+      return [
+          '1' => 'Active',
+          '0' => 'Inactive'
+      ];
+    }
+    
+    
+    //convert password to md5
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            
+            if($insert)
+              $this->password = md5($this->password);
+            else {
+              
+              if($this->password)
+                $this->password = md5($this->password);
+              else {
+               
+                $user = static::find()->where(['email' => $this->email])->one();
+                $this->password = $user->password;
+              }
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }    
 }

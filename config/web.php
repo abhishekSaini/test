@@ -9,6 +9,7 @@ $config = [
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'showScriptName' => false,
             'rules' => [
                 'site/reset-password/<id:(.*)>' => 'site/reset-password',
                 'admin-users' => 'user/index',
