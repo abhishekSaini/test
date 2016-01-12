@@ -74,7 +74,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public static function findByEmail($email)
     {
         
-      return self::find()->where(['email' => $email])->one();
+      return self::find()->where(['email' => $email, 'status' => 1])->one();
     }
 
     /**

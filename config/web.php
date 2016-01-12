@@ -12,7 +12,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'site/reset-password/<id:(.*)>' => 'site/reset-password',
-                'admin-users' => 'user/index',
+                'admin-users' => 'user/admin-index',
                 'operators' => 'user/index',
             ],
         ],

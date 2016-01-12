@@ -40,8 +40,8 @@ AppAsset::register($this);
             [
                 'label' => 'Admin Users', 'url' => ['/admin-users'],
                 'items' => [
-                      ['label' => 'Manage', 'url' => '/admin-users'],
-                      ['label' => 'Create New', 'url' => '/user/create-admin'],
+                      ['label' => 'Manage', 'url' => '/admin-users'], //'url' => '/admin-users'
+                      ['label' => 'Create New', 'url' => '/user/create-admin'], //'url' => '/user/create-admin'
                  ],
                 'visible' => Yii::$app->user->identity->type == 'admin'
             ],

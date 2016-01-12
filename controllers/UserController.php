@@ -26,10 +26,7 @@ class UserController extends Controller
         $filter = Yii::$app->request->queryParams;
         
         //setup type filter
-        if(explode('?', Yii::$app->request->url)[0] == '/admin-users')
-          $filter['UserSearch']['type'] = 'admin';
-        else if (explode('?', Yii::$app->request->url)[0] == '/operators')
-          $filter['UserSearch']['type'] = 'operator';
+        $filter['UserSearch']['type'] = 'operator';
           
         $dataProvider = $searchModel->search($filter);
 
@@ -39,6 +36,23 @@ class UserController extends Controller
         ]);
     }
 
+    public function actionAdminIndex()
+    {
+        $searchModel = new UserSearch();
+        
+        $filter = Yii::$app->request->queryParams;
+        
+        //setup type filter
+        $filter['UserSearch']['type'] = 'admin';
+          
+        $dataProvider = $searchModel->search($filter);
+
+        return $this->render('index'.ucfirst($filter['UserSearch']['type']), [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
     /**
      * Displays a single User model.
      * @param integer $id
