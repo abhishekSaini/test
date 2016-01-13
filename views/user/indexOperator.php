@@ -41,11 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'urlCreator' => function ($action, $model, $key, $index) {
                   
                   if($action == 'update')
-                    return '/user/update-operator?id='.$model->id;
+                    return \Yii::$app->urlManager->createUrl('/user/update-operator?id='.$model->id);
                   else if($action == 'view')
-                    return '/user/view-operator?id='.$model->id;
+                    return \Yii::$app->urlManager->createUrl('/user/view-operator?id='.$model->id);
                   else
-                    return '/user/'.$action.'?id='.$model->id.'&type=operators';
+                    return \Yii::$app->urlManager->createUrl('/user/'.$action.'?id='.$model->id.'&type=operators');
                 }
             ],
         ],

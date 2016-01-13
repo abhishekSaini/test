@@ -35,35 +35,12 @@ class UserController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
-    public function actionAdminIndex()
-    {
-        $searchModel = new UserSearch();
-        
-        $filter = Yii::$app->request->queryParams;
-        
-        //setup type filter
-        $filter['UserSearch']['type'] = 'admin';
-          
-        $dataProvider = $searchModel->search($filter);
-
-        return $this->render('index'.ucfirst($filter['UserSearch']['type']), [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
     
     /**
      * Displays a single User model.
      * @param integer $id
      * @return mixed
      */
-    public function actionViewAdmin($id)
-    {
-        return $this->render('viewAdmin', [
-            'model' => $this->findModel($id),
-        ]);
-    }
     
     public function actionViewOperator($id)
     {
@@ -92,22 +69,6 @@ class UserController extends Controller
             ]);
         }
     }
-    
-    public function actionCreateAdmin()
-    {
-        $model = new User();
-
-        $model->type = 'admin';
-        $model->scenario = 'create';
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view-admin', 'id' => $model->id]);
-        } else {
-            return $this->render('createAdmin', [
-                'model' => $model,
-            ]);
-        }
-    }    
 
     /**
      * Updates an existing User model.
@@ -115,20 +76,8 @@ class UserController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdateAdmin($id)
-    {
-        $model = $this->findModel($id);
-        $model->password = '';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view-admin', 'id' => $model->id]);
-        } else {
-            return $this->render('updateAdmin', [
-                'model' => $model,
-            ]);
-        }
-    }
-
+    //Operator user Update page
     public function actionUpdateOperator($id)
     {
         $model = $this->findModel($id);

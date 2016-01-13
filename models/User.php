@@ -8,6 +8,8 @@ use yii\behaviors\TimestampBehavior;
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
   
+    public $cPassword;
+  
     public function behaviors()
     {
         return [
@@ -25,10 +27,11 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return [
             // username and password are both required
             [['first_name', 'last_name', 'email', 'last_name', 'type', 'status'], 'required'],
-            ['password', 'required', 'on' => 'create'],
+            [['password', 'cPassword'], 'required', 'on' => 'create'],
+            ['password', 'compare', 'compareAttribute'=>'cPassword'],
             ['email', 'unique'],
             ['email', 'email'],
-            ['password', 'safe'],
+            [['password', 'cPassword'], 'safe'],
         ];
     }    
 
@@ -36,6 +39,13 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
        return 'user';
     }
+    
+    public function attributeLabels() {
+      
+      return [
+          'cPassword' => 'Confirm Password'
+      ];
+    }    
     
     /**
       * @inheritdoc

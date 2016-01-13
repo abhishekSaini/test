@@ -27,11 +27,13 @@ class SiteController extends Controller
         ];
     }
 
+    //Home page action; accessible after login
     public function actionIndex()
     {
         return $this->render('index');
     }
 
+    //Login page
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
@@ -47,6 +49,7 @@ class SiteController extends Controller
         ]);
     }
 
+    //Logout page
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -54,6 +57,7 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    
     public function actionContact()
     {
         $model = new ContactForm();
@@ -72,6 +76,7 @@ class SiteController extends Controller
         return $this->render('about');
     }
     
+    //Forgot password page
     public function actionForgotPassword() {
       
       $isSuccessfull = false;
@@ -96,6 +101,7 @@ class SiteController extends Controller
       ]);
     }
     
+    //Reset password page; user comes to this page from email
     public function actionResetPassword($id) {
       
       $isSuccessfull = false;
@@ -109,7 +115,7 @@ class SiteController extends Controller
         $isSuccessfull = true;
         $user = User::find()->where(['authKey' => $model->id])->one();
         
-        $user->password = md5($model->password);
+        $user->password = $model->password;
         $user->save(false);
       }
       

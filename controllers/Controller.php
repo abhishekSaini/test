@@ -32,6 +32,7 @@ class Controller extends \yii\web\Controller
         ];
     }
     
+    //display only the public pages
     public function init() {
       
       //print_r(Yii::$app->user->identity); exit;

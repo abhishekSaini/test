@@ -13,13 +13,15 @@ use app\models\User;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'first_name')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
 
-    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'last_name')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
   
-    <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'password')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
+  
+    <?= $form->field($model, 'cPassword')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
 
     <?= $form->field($model, 'status')->dropDownList(
             User::getStatusList()           // Flat array ('id'=>'label')

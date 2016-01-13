@@ -40,31 +40,31 @@ AppAsset::register($this);
             [
                 'label' => 'Admin Users', 'url' => ['/admin-users'],
                 'items' => [
-                      ['label' => 'Manage', 'url' => '/admin-users'], //'url' => '/admin-users'
-                      ['label' => 'Create New', 'url' => '/user/create-admin'], //'url' => '/user/create-admin'
+                      ['label' => 'Manage', 'url' => ''], //'url' => '/admin-users'
+                      ['label' => 'Create New', 'url' => ''], //'url' => '/user/create-admin'
                  ],
                 'visible' => Yii::$app->user->identity->type == 'admin'
             ],
             [
                 'label' => 'Operators', 'url' => ['/operators'],
                 'items' => [
-                      ['label' => 'Manage', 'url' => '/operators'],
-                      ['label' => 'Create New', 'url' => '/user/create-operator'],
+                      ['label' => 'Manage', 'url' => ['/operators']],
+                      ['label' => 'Create New', 'url' => ['/user/create-operator']],
                  ],
                 'visible' => Yii::$app->user->identity->type == 'admin'
             ],
             [
                 'label' => 'Channels', 'url' => ['/channels'],
                 'items' => [
-                      ['label' => 'Manage', 'url' => '/channels'],
-                      ['label' => 'Create New', 'url' => '/channels/create'],
+                      ['label' => 'Manage', 'url' => ['/channels']],
+                      ['label' => 'Create New', 'url' => ['/channels/create']],
                  ],
             ],
             [
                 'label' => 'Meetings', 'url' => ['/meetings'],
                 'items' => [
-                      ['label' => 'Manage', 'url' => '/meetings'],
-                      ['label' => 'Create New', 'url' => '/meetings/create'],
+                      ['label' => 'Manage', 'url' => ['/meetings']],
+                      ['label' => 'Create New', 'url' => ['/meetings/create']],
                  ],
             ],
             //['label' => 'Contact', 'url' => ['/site/contact']],
@@ -87,8 +87,6 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
 
