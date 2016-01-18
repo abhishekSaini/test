@@ -160,6 +160,23 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
       
       return rtrim($string, ', ');
     }
+    
+    public function afterSave($insert, $changedAttributes) {
+      
+      parent::afterSave($insert, $changedAttributes);
+      
+      if($insert) {
+        
+        if(\Yii::$app->user->identity->type == 'admin' && $this->type == 'operator') {
+          
+          $operator = new AdminOperator();
+          $operator->admin_id = \Yii::$app->user->id;
+          $operator->operator_id = $this->id;
+
+          $operator->save(false);
+        }
+      }
+    }
 
     //convert password to md5
     public function beforeSave($insert)
