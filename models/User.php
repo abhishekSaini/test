@@ -137,6 +137,25 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
       return $this->hasMany(AdminOperator::className(), ['admin_id' => 'id']);
     }
     
+    public function getOperatorsName() {
+      
+      $operatorsId = array_keys(ArrayHelper::map($this->assignedOperators, 'operator_id', 'admin_id'));
+      $string = '';
+      
+      if(!$operatorsId)
+        return $string;
+      
+      $command = \Yii::$app->db->createCommand("SELECT first_name, last_name FROM user WHERE id IN (". implode(',', $operatorsId) .")");
+      $data = $command->queryAll();	
+      
+      foreach ($data as $operator) {
+        
+        $string .= $operator['first_name'].' '.$operator['last_name'].', ';
+      }
+      
+      return rtrim($string, ', ');
+    }
+
     //convert password to md5
     public function beforeSave($insert)
     {

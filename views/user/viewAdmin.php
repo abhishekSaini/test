@@ -37,6 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Status',
                 'value' => User::getStatusList()[$model->status]
             ],
+            [
+                'label' => 'Operators',
+                'value' => $model->getOperatorsName()
+            ],
             'date_created',
             'date_updated',
         ],
