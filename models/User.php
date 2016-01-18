@@ -132,6 +132,11 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
       ];
     }
     
+    public function getOperators() {
+      
+      return $this->hasMany(AdminOperator::className(), ['operator_id' => 'id']);
+    }
+
     public function getAssignedOperators() {
       
       return $this->hasMany(AdminOperator::className(), ['admin_id' => 'id']);

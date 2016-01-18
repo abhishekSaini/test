@@ -42,6 +42,12 @@ class UserSearch extends User
     public function search($params)
     {
         $query = User::find();
+        
+        //if admin, show assigned operators only
+        if(\Yii::$app->user->identity->type == 'admin') {
+          
+          $query->joinWith('operators')->where(['admin_id' => \Yii::$app->user->id]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
