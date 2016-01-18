@@ -43,7 +43,7 @@ AppAsset::register($this);
                       ['label' => 'Manage', 'url' => ['/admin-users']], //'url' => '/admin-users'
                       ['label' => 'Create New', 'url' => ['/user/create-admin']], //'url' => '/user/create-admin'
                  ],
-                'visible' => Yii::$app->user->identity->type == 'admin'
+                'visible' => Yii::$app->user->identity->type == 'sadmin'
             ],
             [
                 'label' => 'Operators', 'url' => ['/operators'],
@@ -51,7 +51,7 @@ AppAsset::register($this);
                       ['label' => 'Manage', 'url' => ['/operators']],
                       ['label' => 'Create New', 'url' => ['/user/create-operator']],
                  ],
-                'visible' => Yii::$app->user->identity->type == 'admin'
+                'visible' => in_array(Yii::$app->user->identity->type, ['admin', 'sadmin'])
             ],
             [
                 'label' => 'Channels', 'url' => ['/channels'],

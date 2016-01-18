@@ -4,11 +4,13 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
   
     public $cPassword;
+    public $operators;
   
     public function behaviors()
     {
@@ -31,7 +33,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             ['password', 'compare', 'compareAttribute'=>'cPassword'],
             ['email', 'unique'],
             ['email', 'email'],
-            [['password', 'cPassword'], 'safe'],
+            [['password', 'cPassword', 'operators'], 'safe'],
         ];
     }    
 
@@ -130,11 +132,18 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
       ];
     }
     
+    public function getAssignedOperators() {
+      
+      return $this->hasMany(AdminOperator::className(), ['admin_id' => 'id']);
+    }
     
     //convert password to md5
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+          
+            //save operators for admin
+            $this->saveOperators();
             
             if($insert)
               $this->password = md5($this->password);
@@ -153,5 +162,30 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         } else {
             return false;
         }
-    }    
+    }
+    
+    private function saveOperators() {
+      
+      if(!$this->operators)
+        return;
+      
+      AdminOperator::deleteAll('admin_id = '. $this->id);
+      
+      foreach ($this->operators as $operator_id) {
+        
+        $operator = new AdminOperator();
+        $operator->admin_id = $this->id;
+        $operator->operator_id = $operator_id;
+        
+        $operator->save(false);
+      }
+    }
+
+    public static function getAllOperators() {
+      
+      return ArrayHelper::map(self::find()->where(['type' => 'operator'])->all(), 'id', function($user){
+
+              return $user->first_name.' '.$user->last_name;
+            });
+    }
 }
